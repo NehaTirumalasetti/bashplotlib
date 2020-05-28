@@ -28,14 +28,21 @@ def get_scale(series, is_y=False, steps=20):
     return scaled_series
 
 
-def _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align):
+def _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align, xtitle="", ytitle=""):
     plotted = set()
-
+    width = 2 * (len(get_scale(xs, False, size))+1)
     if title:
-        print(box_text(title, 2 * (len(get_scale(xs, False, size)) + 1), title_align))
-
-    print("+" + "-" * (2 * (len(get_scale(xs, False, size))+1)) + "+")
+        print(box_text(title, width, title_align))
+    if ytitle != "":
+        ytitle = 'y: '+ytitle
+        print(ytitle)
+        # n = 0
+    print("+" + "-" * width + "+")
     for y in get_scale(ys, True, size):
+        '''if (ytitle!="") and (n < len(ytitle)): #for printing vertically beside y axis
+            print(ytitle[n]+"|", end=' ')
+            n += 1
+        else:'''
         print("|", end=' ')
         for x in get_scale(xs, False, size):
             point = " "
@@ -47,10 +54,13 @@ def _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align):
                         colour = cs[i]
             printcolour(point + " ", True, colour)
         print(" |")
-    print("+" + "-" * (2 * (len(get_scale(xs, False, size)) + 1)) + "+")
+    print("+" + "-" * width + "+")
+    if xtitle != "":
+        xtitle = 'x: '+xtitle
+        print(xtitle.rjust(width))
 
 
-def plot_scatter(f, xs, ys, size, pch, colour, title, title_align):
+def plot_scatter(f, xs, ys, size, pch, colour, title, title_align, xtitle="", ytitle=""):
     """
     Form a complex number.
 
@@ -82,7 +92,7 @@ def plot_scatter(f, xs, ys, size, pch, colour, title, title_align):
         with open(ys) as fh:
             ys = [float(str(row).strip()) for row in fh]
 
-    _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align)
+    _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align, xtitle, ytitle)
     
 
 
