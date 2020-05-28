@@ -76,11 +76,37 @@ def abbreviate(labels, rfill=' '):
     return abbrev
 
 
-def box_text(text, width, offset=0):
+def box_text(text, width, title_align, offset=0):
     """
     Return text inside an ascii textbox
     """
+    '''box = " " * offset + "+" + "-" * (width+2) + "+" + "\n"    
+    box += " " * offset + "|+" + "-" * width + "+|" + "\n"
+    if len(text) > width:
+        text = text[:(width-5)] + '...'
+    if title_align == 'c':
+        text = text.center(width)
+    elif title_align == 'l':
+        text = text.ljust(width)
+    else:
+        text = text.rjust(width)
+    box += " " * offset + "||" + text + "||" + "\n"
+    box += " " * offset + "|+" + "-" * width + "+|" + "\n"
+    box += " " * offset + "+" + "-" * (width + 2) + "+"'''
+
+    """
+    Double edged title box code
+    """
+
     box = " " * offset + "+" + "-" * width + "+" + "\n"
-    box += " " * offset + "|" + text.center(width) + "|" + "\n"
+    if len(text) > width:
+        text = text[:(width - 5)] + '...'
+    if title_align == 'c':
+        text = text.center(width)
+    elif title_align == 'l':
+        text = text.ljust(width)
+    else:
+        text = text.rjust(width)
+    box += " " * offset + "|" + text + "|" + "\n"
     box += " " * offset + "+" + "-" * width + "+"
     return box

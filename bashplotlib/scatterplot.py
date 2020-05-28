@@ -28,11 +28,11 @@ def get_scale(series, is_y=False, steps=20):
     return scaled_series
 
 
-def _plot_scatter(xs, ys, size, pch, colour, title, cs):
+def _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align):
     plotted = set()
 
     if title:
-        print(box_text(title, 2 * (len(get_scale(xs, False, size)) + 1)))
+        print(box_text(title, 2 * (len(get_scale(xs, False, size)) + 1), title_align))
 
     print("+" + "-" * (2 * (len(get_scale(xs, False, size))+1)) + "+")
     for y in get_scale(ys, True, size):
@@ -50,14 +50,14 @@ def _plot_scatter(xs, ys, size, pch, colour, title, cs):
     print("+" + "-" * (2 * (len(get_scale(xs, False, size)) + 1)) + "+")
 
 
-def plot_scatter(f, xs, ys, size, pch, colour, title):
+def plot_scatter(f, xs, ys, size, pch, colour, title, title_align):
     """
     Form a complex number.
 
     Arguments:
         f -- comma delimited file w/ x,y coordinates
         xs -- if f not specified this is a file w/ x coordinates
-        ys -- if f not specified this is a filew / y coordinates
+        ys -- if f not specified this is a file w/ y coordinates
         size -- size of the plot
         pch -- shape of the points (any character)
         colour -- colour of the points
@@ -82,7 +82,7 @@ def plot_scatter(f, xs, ys, size, pch, colour, title):
         with open(ys) as fh:
             ys = [float(str(row).strip()) for row in fh]
 
-    _plot_scatter(xs, ys, size, pch, colour, title, cs)
+    _plot_scatter(xs, ys, size, pch, colour, title, cs, title_align)
     
 
 
